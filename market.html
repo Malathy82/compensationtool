@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Market Data Integration – Jio Mudra</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f9fb;
+    }
+
+    .header {
+      background-color: #001a70;
+      color: white;
+      padding: 16px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .main {
+      padding: 40px;
+    }
+
+    .back-link {
+      color: #001a70;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      color: #001a70;
+      margin-bottom: 10px;
+    }
+
+    .description {
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      text-align: center;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 40px;
+      margin-bottom: 15px;
+    }
+
+    .card-title {
+      font-size: 16px;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: #444;
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .card button {
+      padding: 10px 20px;
+      background-color: #0056d2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-top: 10px;
+      min-width: 120px;
+    }
+
+    .card button:hover {
+      background-color: #0040aa;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div><strong>Jio Mudra</strong></div>
+    <div>Hi Admin</div>
+  </div>
+
+  <div class="main">
+    <a href="JioPagaar.html#benchmarkingSubmodules" class="back-link">← Back to Benchmarking</a>
+    <h1>Market Data Integration</h1>
+    <p class="description">Integrate external compensation data with internal pay structures for smarter compensation planning and benchmarking insights.</p>
+
+    <div class="grid">
+      <div class="card">
+        <img src="https://img.icons8.com/ios-filled/50/upload.png" />
+        <div class="card-title">Upload Market Data</div>
+        <div class="card-desc">Import files from Aon, Mercer, WTW etc.</div>
+        <button>Upload</button>
+      </div>
+
+      <div class="card">
+        <img src="https://img.icons8.com/ios-filled/50/settings.png" />
+        <div class="card-title">Data Mapping & Validation</div>
+        <div class="card-desc">Map roles, validate rows, catch errors</div>
+        <button>Validate</button>
+      </div>
+
+      <div class="card">
+        <img src="https://img.icons8.com/ios-filled/50/combo-chart--v1.png" />
+        <div class="card-title">Percentile Analytics</div>
+        <div class="card-desc">View P25, P50, P75 insights for each role</div>
+        <button>View Analysis</button>
+      </div>
+
+      <div class="card">
+        <img src="https://img.icons8.com/ios-filled/50/bar-chart.png" />
+        <div class="card-title">Compa-Ratio Visualizer</div>
+        <div class="card-desc">Compare internal pay vs market medians</div>
+        <button>View Ratios</button>
+      </div>
+
+      <div class="card">
+        <img src="https://img.icons8.com/ios-filled/50/graph.png" />
+        <div class="card-title">Market Trends</div>
+        <div class="card-desc">Multi-year percentile trend lines</div>
+        <button>View Trends</button>
+      </div>
+
+      <div class="card">
+        <img src="https://img.icons8.com/ios-filled/50/approve-and-update.png" />
+        <div class="card-title">Integration Activity Logs</div>
+        <div class="card-desc">Track uploads, mappings, actions</div>
+        <button>View Logs</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

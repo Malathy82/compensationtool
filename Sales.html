@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sales Incentives – Jio Mudra</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f6f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header {
+      background-color: #001a70;
+      color: white;
+      padding: 20px 40px;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .filters, .summary, .table-section, .simulator, .rule-engine, .analytics, .notifications, .approvals {
+      padding: 30px 40px;
+      background-color: white;
+      margin: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .filters select, .filters input {
+      margin: 0 10px 10px 0;
+      padding: 8px;
+    }
+
+    .summary {
+      display: flex;
+      gap: 30px;
+    }
+
+    .summary-card {
+      flex: 1;
+      background-color: #e9f0ff;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .summary-card small {
+      display: block;
+      margin-top: 6px;
+      color: #555;
+    }
+
+    progress {
+      width: 90%;
+      height: 10px;
+      margin-top: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: center;
+    }
+
+    .simulator input, .simulator button {
+      margin: 8px 0;
+      padding: 8px;
+    }
+
+    canvas {
+      max-width: 100%;
+      margin-top: 20px;
+    }
+
+    .summary-card {
+  flex: 1;
+  background-color: #e9f0ff;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.summary-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.sparkline {
+  height: 30px;
+  margin-top: 10px;
+  font-size: 12px;
+  color: #777;
+  font-style: italic;
+}
+
+    #empModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.5); align-items: center; justify-content: center; }
+
+
+  </style>
+  
+</head>
+
+<body>
+    <div id="empModal" style="display:none; position:fixed; top:0; left:0; 
+     width:100%; height:100%; background:rgba(0,0,0,0.5); align-items:center; 
+     justify-content:center;">
+  <div style="background:white; padding:20px; border-radius:8px; max-width:400px; width:90%;">
+    <h3 id="empName">Name</h3>
+    <p><strong>Designation:</strong> <span id="empRole">–</span></p>
+    <p><strong>Target:</strong> <span id="empTarget">–</span></p>
+    <p><strong>Achieved:</strong> <span id="empAchieved">–</span></p>
+    <p><strong>Last 3-month Trend:</strong></p>
+    <canvas id="miniTrendChart" width="300" height="100"></canvas>
+    <button onclick="closeEmpModal()" style="margin-top:10px;">Close</button>
+  </div>
+</div>
+
+  <div class="header">Sales Incentives Dashboard</div>
+  
+   <a href="jiopagaar.html#variablePaySubmodules" class="back-btn">← Back to Incentives</a>
+
+  <div class="filters">
+   <select id="periodSelect" onchange="updatePeriodView(); saveFilterSelection('periodSelect')">
+      <option disabled selected>Period</option>
+      <option>Monthly</option>
+      <option>Quarterly</option>
+      <option>Annually</option>
+    </select>
+   <select id="buSelect" onchange="saveFilterSelection('buSelect')">
+
+      <option disabled selected>Business Unit</option>
+      <option>Mobility</option>
+      <option>Home</option>
+      <option>SMB</option>
+      <option>SLG</option>
+      <option>Digital Services</option>
+    </select>
+  <select id="regionSelect" onchange="saveFilterSelection('regionSelect')">
+      <option disabled selected>Region / Territory</option>
+      <option>North</option>
+      <option>South</option>
+      <option>East</option>
+      <option>West</option>
+    </select>
+  <select id="roleSelect" onchange="saveFilterSelection('roleSelect')">
+      <option disabled selected>Sales Role</option>
+      <option>Sales Executive</option>
+      <option>Sales Manager</option>
+      <option>Area Head</option>
+    </select>
+    <input type="text" placeholder="Search Employee">
+  </div>
+  <div id="alertBanner" style="display:none; background:#fff3cd; color:#856404; padding:10px; text-align:center; font-weight:bold;">
+  ⚠️ More than 20% of your team is below 80% target. Consider sending a pulse-check or coaching note.
+</div>
+
+<div class="summary">
+
+  <!-- Card 1 -->
+  <div class="summary-card" style="border-left: 6px solid #28a745;">
+    <div style="font-size: 26px;">🏆</div>
+    <h2>32%</h2>
+    <p>Top Performers (≥100%)</p>
+    <small style="color: green;">+6% vs Last Month</small>
+    <progress value="32" max="100"></progress>
+    <div class="sparkline">Trend: 28% → 32%</div>
+    <button onclick="alert('Viewing Top 10...')" style="margin-top: 10px; font-size: 12px;">🔍 View Top 10</button>
+    <span title="Employees crossing 100% target threshold." style="position: absolute; top: 10px; right: 10px;">ℹ️</span>
+  </div>
+
+  <!-- Card 2 -->
+  <div class="summary-card" style="border-left: 6px solid #dc3545;">
+    <div style="font-size: 26px;">💰</div>
+    <h2 style="color: #dc3545;">₹46 Cr / ₹50 Cr</h2>
+    <p>Incentive Burn Rate</p>
+    <small style="color: #dc3545;">⚠️ 92% Used</small>
+    <progress value="92" max="100" style="accent-color: red;"></progress>
+    <div class="sparkline">Spike: 84% → 92%</div>
+    <button onclick="alert('Budget Insights')" style="margin-top: 10px; font-size: 12px;">📊 Budget Details</button>
+    <span title="Budget burn nearing threshold. Action required." style="position: absolute; top: 10px; right: 10px;">ℹ️</span>
+  </div>
+
+  <!-- Card 3 -->
+  <div class="summary-card" style="border-left: 6px solid #ffc107;">
+    <div style="font-size: 26px;">⚠️</div>
+    <h2>12 / 78</h2>
+    <p>Exceptions & Approvals</p>
+    <small>Review queue active</small>
+    <div class="sparkline">New: 8 → 12 flagged</div>
+    <button onclick="alert('Reviewing Exceptions')" style="margin-top: 10px; font-size: 12px;">🛠 Review Exceptions</button>
+    <span title="Exceptions due to slab logic or pending reviews." style="position: absolute; top: 10px; right: 10px;">ℹ️</span>
+  </div>
+
+  <!-- Card 4 -->
+  <div class="summary-card" style="border-left: 6px solid #6c757d;">
+    <div style="font-size: 26px;">📊</div>
+    <h2>Spread</h2>
+    <p>
+      <span title="Below 80%">🔴 18</span> |
+      <span title="80–100%">🟡 42</span> |
+      <span title="Above 100%">🟢 18</span>
+    </p>
+    <small>Balanced mix; review low end</small>
+    <div class="sparkline">Stable → No shift</div>
+    <button onclick="alert('Spread Details')" style="margin-top: 10px; font-size: 12px;">🔎 Drill Down</button>
+    <span title="Shows employee spread across performance bands." style="position: absolute; top: 10px; right: 10px;">ℹ️</span>
+  </div>
+
+</div>
+
+
+  <div class="performance-filters" style="margin: 10px 40px;">
+  <label>Filter by Performance:</label>
+  <select onchange="filterByPerformanceBand(this.value)">
+    <option value="all">All</option>
+    <option value="lt80">Below 80%</option>
+    <option value="80to100">80% - 100%</option>
+    <option value="gt100">Above 100%</option>
+  </select>
+</div>
+
+
+  <div class="table-section">
+    <button onclick="exportTableToCSV()" style="padding: 6px 12px; margin-left: 10px;">
+  Export CSV
+</button>
+<button onclick="exportTableToPDF()" style="padding: 6px 12px; margin-left: 6px;">
+  Export PDF
+</button>
+
+  <h3>Performance Table</h3>
+
+   <div style="display:flex; align-items:center; margin-bottom:10px;">
+    <!-- Select All checkbox -->
+    <input type="checkbox" id="selectAll" style="margin-right:8px;" />
+    <label for="selectAll" style="margin-right:20px;">Select All</label>
+
+    <!-- Bulk Action dropdown -->
+    <select id="bulkAction" style="padding:6px; margin-right:8px;">
+      <option disabled selected>Bulk Action</option>
+      <option value="bulkApprove">Approve Selected</option>
+      <option value="bulkReview">Mark for Review</option>
+      <option value="bulkNotify">Send Reminder</option>
+    </select>
+    <button onclick="applyBulkAction()" style="padding:6px 12px;">Apply</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Employee</th>
+        <th>Designation</th>
+        <th>Target (₹)</th>
+        <th>Achieved (₹)</th>
+        <th>% Achieved</th>
+        <th>Payout Eligible</th>
+        <th>Actual Payout</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+  <a href="#" class="employee-link" data-emp-id="alice123">Alice Smith</a>
+</td>
+        <td>Sales Executive</td>
+        <td>3,69,033</td>
+        <td>32,000</td>
+        <td>85%</td>
+        <td>₹20,000</td>
+        <td>₹18,000</td>
+        <td><button>Simulate</button> <button>Approve</button></td>
+      </tr>
+
+    <tr>
+<td>
+  <a href="#" class="employee-link" data-emp-id="ravi123">Ravi Kumar</a>
+</td>
+  <td>Sales Manager</td>
+  <td>8,50,000</td>
+  <td>9,20,000</td>
+  <td>108%</td>
+  <td>₹65,000</td>
+  <td>₹68,000</td>
+  <td><button>Simulate</button> <button>Approve</button></td>
+</tr>
+<tr>
+<td>
+  <a href="#" class="employee-link" data-emp-id="megha234">Megha Smith</a>
+</td>
+  <td>Area Head</td>
+  <td>12,00,000</td>
+  <td>9,40,000</td>
+  <td>78%</td>
+  <td>₹90,000</td>
+  <td>₹70,200</td>
+  <td><button>Simulate</button> <button>Review</button></td>
+</tr>
+<tr>
+<td>
+  <a href="#" class="employee-link" data-emp-id="rohan123">Rohan Desai</a>
+</td>
+  <td>Sales Executive</td>
+  <td>4,10,000</td>
+  <td>4,40,000</td>
+  <td>107%</td>
+  <td>₹25,000</td>
+  <td>₹28,000</td>
+  <td><button>Simulate</button> <button>Approve</button></td>
+</tr>
+<tr>
+<td>
+  <a href="#" class="employee-link" data-emp-id="aditi123">Aditi Bhagat</a>
+</td>
+  <td>Sales Manager</td>
+  <td>9,00,000</td>
+  <td>8,70,000</td>
+  <td>97%</td>
+  <td>₹60,000</td>
+  <td>₹58,200</td>
+  <td><button>Simulate</button> <button>Approve</button></td>
+</tr>
+
+    </tbody>
+  </table>
+</div>
+<div class="simulator">
+  <h3>💡 Payout Simulator</h3>
+
+  <div style="margin-bottom: 16px;">
+    <label><input type="radio" name="simMode" value="normal" checked onchange="toggleSimMode()"> Normal Mode</label>
+    <label style="margin-left: 20px;"><input type="radio" name="simMode" value="reverse" onchange="toggleSimMode()"> Reverse Mode</label>
+  </div>
+
+  <!-- Input Block -->
+  <div id="normalSimBlock" style="display: flex; gap: 16px; align-items: flex-start; flex-wrap: wrap;">
+    <input type="number" id="simTarget" placeholder="🎯 Enter Target ₹" style="flex: 1; min-width: 200px;">
+    <input type="number" id="simAchieved" placeholder="📈 Enter Achieved ₹" style="flex: 1; min-width: 200px;">
+    <button onclick="runSimulator()" style="height: 40px;">Simulate</button>
+  </div>
+
+  <div id="reverseSimBlock" style="display: none; gap: 16px; margin-top: 10px;">
+    <input type="number" id="revTarget" placeholder="🎯 Enter Target ₹" style="min-width: 200px;">
+    <input type="number" id="revPayout" placeholder="💰 Desired Payout ₹" style="min-width: 200px;">
+    <button onclick="runReverseSimulator()" style="height: 40px;">Calculate Achievement</button>
+  </div>
+
+  <!-- Output -->
+  <div style="margin-top: 24px; border: 1px solid #ccc; padding: 16px; border-radius: 8px; background: #f9fbff;">
+    <p><strong>% Achieved:</strong> <span id="simPercent">--</span></p>
+    <p><strong>Estimated Incentive:</strong> <span id="simIncentive">--</span></p>
+    <p style="color: #888; font-size: 13px;"><em>Note: Incentive = 5% of Achieved Amount if > 80% Target</em></p>
+  </div>
+</div>
+
+</div>
+
+<div class="rule-engine" style="margin-top: 30px; background: #f8fbff; border-left: 6px solid #004085; border-radius: 12px; padding: 24px 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+  <h3 style="margin-top: 0; color: #004085;">⚙️ Incentive Rule Engine</h3>
+
+  <!-- Rule Table -->
+  <table style="width: 100%; border-collapse: collapse; font-size: 14px; margin-bottom: 20px;">
+    <thead>
+      <tr style="background: #eaf1fb; color: #004085; height: 44px;">
+        <th style="text-align: center; padding: 12px;">Slab</th>
+        <th style="text-align: center; padding: 12px;">Performance Band</th>
+        <th style="text-align: center; padding: 12px;">Incentive Logic</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="height: 44px;">
+        <td style="padding: 12px;">Below Threshold</td>
+        <td style="padding: 12px;">&lt; 80%</td>
+        <td style="padding: 12px;">❌ No payout eligible</td>
+      </tr>
+      <tr style="height: 52px;">
+        <td style="padding: 12px;">Standard</td>
+        <td style="padding: 12px;">80% – 100%</td>
+        <td style="padding: 12px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <input type="number" id="ruleBand1" value="5" style="width: 60px; padding: 6px;">
+            <span>%</span>
+            <button onclick="applyRuleEdit(1)" style="padding: 6px 12px;">Update</button>
+          </div>
+        </td>
+      </tr>
+      <tr style="height: 52px;">
+        <td style="padding: 12px;">High Performer</td>
+        <td style="padding: 12px;">100% – 150%</td>
+        <td style="padding: 12px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <input type="number" id="ruleBand2" value="7" style="width: 60px; padding: 6px;">
+            <span>%</span>
+            <button onclick="applyRuleEdit(2)" style="padding: 6px 12px;">Update</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Action Buttons -->
+  <div style="display: flex; flex-wrap: wrap; gap: 16px; margin-top: 10px;">
+    <button onclick="previewImpact()" style="padding: 10px 20px;">📊 Preview Impact</button>
+    <button onclick="exportRuleSnapshot()" style="padding: 10px 20px;">📤 Export Rule Sheet</button>
+    <button onclick="resetRules()" style="padding: 10px 20px;">♻️ Reset to Defaults</button>
+    <button onclick="togglePolicyHistory()" style="padding: 10px 20px;">🕓 View Past Policy Versions</button>
+  </div>
+
+  <!-- Notes -->
+  <p style="margin-top: 16px; font-size: 13px; color: #555;">
+    📌 These rules affect payout simulations. Final changes must be approved via governance route.
+  </p>
+
+  <!-- History Toggle -->
+  <div id="policyHistory" style="margin-top: 20px; display: none; border-top: 1px dashed #ccc; padding-top: 12px;">
+    <h4 style="margin-bottom: 6px;">🕒 Previous Rule Snapshots</h4>
+    <ul style="font-size: 13px; color: #333;">
+      <li>📅 Apr 2024: 5% | 8% | 0% cap</li>
+      <li>📅 Dec 2023: 4.5% | 7.5% | cap at 140%</li>
+    </ul>
+  </div>
+</div>
+
+
+
+
+<div class="analytics">
+  <h3>📈 Visual Analytics Dashboard</h3>
+
+  <div style="display: flex; flex-wrap: wrap; gap: 40px; justify-content: space-between;">
+
+    <!-- Chart 1: Target vs Achieved by Region -->
+    <div style="flex: 1; min-width: 400px;">
+      <h4 style="margin-bottom: 4px;">Target vs Achieved – Region-wise</h4>
+      <canvas id="barChart" height="180"></canvas>
+    </div>
+
+    <!-- Chart 2: Payout Efficiency by Quarter -->
+    <div style="flex: 1; min-width: 400px;">
+      <h4 style="margin-bottom: 4px;">Payout Efficiency – Quarterly Trend</h4>
+      <canvas id="lineChart" height="180"></canvas>
+    </div>
+
+  </div>
+
+  <div style="margin-top: 20px;">
+    <p style="font-size: 14px; color: #555;">
+      ✅ Use this dashboard to track performance deviations, identify low-performing zones, and adjust your target-setting and incentive rules accordingly.
+    </p>
+  </div>
+</div>
+
+
+<div class="notifications">
+  <h3>Notifications & Exceptions Log</h3>
+  <ul>
+    <li>3 payouts need review</li>
+    <li>Incentive exception auto-escalated</li>
+  </ul>
+</div>
+
+<div class="approvals">
+  <h3>Approvals & Audit Trail</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Action</th>
+        <th>Performed By</th>
+        <th>Date/Time</th>
+        <th>Remarks</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Approved</td>
+        <td>Manager A</td>
+        <td>01 Jun 11:45</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>Exception</td>
+        <td>HR Reviewer</td>
+        <td>01 Jun 12:10</td>
+        <td>Slab logic deviation</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<script>
+    function updatePeriodView() {
+  const selected = document.getElementById('periodSelect').value.toLowerCase();
+  const data = summaryData[selected];
+
+  const summaryCards = document.querySelectorAll(".summary-card");
+
+  if (data) {
+    summaryCards[0].querySelector("h2").innerText = data.percentOverTarget;
+    summaryCards[1].querySelector("h2").innerText = data.budgetUtil;
+    summaryCards[2].querySelector("h2").innerText = data.exceptions;
+    summaryCards[3].querySelector("p").innerHTML = data.perfSplit;
+
+    // Placeholder: You could also update table rows or graph datasets here
+  }
+}
+
+
+   function runSimulator() {
+  const target = parseFloat(document.getElementById("simTarget").value);
+  const achieved = parseFloat(document.getElementById("simAchieved").value);
+
+  if (isNaN(target) || isNaN(achieved) || target <= 0 || achieved < 0) {
+    alert("Please enter valid numbers greater than 0.");
+    return;
+  }
+
+  const percent = ((achieved / target) * 100).toFixed(2);
+  const incentive = (achieved * 0.05).toFixed(2); // Fixed 5%
+
+  document.getElementById("simPercent").innerText = `${percent}%`;
+  document.getElementById("simIncentive").innerText = `₹${incentive}`;
+}
+function applyRuleEdit(band) {
+  const value = document.getElementById(`ruleBand${band}`).value;
+  alert(`Band ${band} updated to ${value}%. You can preview impact.`);
+}
+
+function previewImpact() {
+  alert("Simulated impact will show who gets higher payouts.");
+}
+
+function exportRuleSnapshot() {
+  alert("Exporting current rule slab logic as XLS.");
+}
+
+function resetRules() {
+  document.getElementById("ruleBand1").value = 5;
+  document.getElementById("ruleBand2").value = 7;
+  alert("Rules reset to original config.");
+}
+
+function togglePolicyHistory() {
+  const section = document.getElementById("policyHistory");
+  section.style.display = section.style.display === 'none' ? 'block' : 'none';
+}
+
+function colorizeRows() {
+  document.querySelectorAll('.table-section tbody tr').forEach(row => {
+    const pct = parseFloat(row.querySelector('td:nth-child(5)').innerText.replace('%',''));
+    row.classList.remove('highlight-low','highlight-mid','highlight-high');
+    if (pct < 80) row.classList.add('highlight-low');
+    else if (pct <= 100) row.classList.add('highlight-mid');
+    else row.classList.add('highlight-high');
+  });
+}
+
+function checkAlerts() {
+  const totalRows = document.querySelectorAll('.table-section tbody tr').length;
+  const lowCount = document.querySelectorAll('.highlight-low').length;
+  const banner = document.getElementById('alertBanner');
+  if (lowCount / totalRows > 0.2) banner.style.display = 'block';
+  else banner.style.display = 'none';
+}
+const summaryData = {
+  monthly: {
+    percentOverTarget: "32%",
+    budgetUtil: "₹42.3 Cr / ₹50 Cr",
+    exceptions: "12 / 78",
+    perfSplit: "<80%: 18 | 80–100%: 42 | >100%: 18"
+  },
+  quarterly: {
+    percentOverTarget: "45%",
+    budgetUtil: "₹128 Cr / ₹150 Cr",
+    exceptions: "8 / 78",
+    perfSplit: "<80%: 14 | 80–100%: 40 | >100%: 24"
+  },
+  annually: {
+    percentOverTarget: "50%",
+    budgetUtil: "₹510 Cr / ₹600 Cr",
+    exceptions: "5 / 78",
+    perfSplit: "<80%: 10 | 80–100%: 38 | >100%: 30"
+  }
+};
+
+function saveFilterSelection(id) {
+  const value = document.getElementById(id).value;
+  localStorage.setItem(id, value);
+}
+
+function loadSavedFilters() {
+  const ids = ['periodSelect', 'buSelect', 'regionSelect', 'roleSelect'];
+  ids.forEach(id => {
+    const saved = localStorage.getItem(id);
+    if (saved) {
+      const el = document.getElementById(id);
+      if (el) el.value = saved;
+    }
+  });
+
+  updatePeriodView(); // Refresh view based on saved period
+}
+
+
+window.addEventListener('load', () => {
+  loadSavedFilters();
+  colorizeRows(); 
+  checkAlerts();
+});
+function filterByPerformanceBand(val) {
+    document.querySelectorAll('.table-section tbody tr').forEach(row => {
+      const pct = parseFloat(row.querySelector('td:nth-child(5)').innerText.replace('%',''));
+      if (val === 'lt80' && pct >= 80) row.style.display = 'none';
+      else if (val === '80to100' && (pct < 80 || pct > 100)) row.style.display = 'none';
+      else if (val === 'gt100' && pct <= 100) row.style.display = 'none';
+      else row.style.display = '';
+    });
+    // Re‐color and re‐check alerts after filtering:
+    colorizeRows();
+    checkAlerts();
+  }
+// Call it once at page load:
+window.addEventListener('load', colorizeRows);
+// Also call it inside filterByPerformanceBand() after you filter rows.
+
+function applyBulkAction() {
+  const action = document.getElementById('bulkAction').value;
+  const selectedRows = Array.from(document.querySelectorAll('.row-select'))
+                            .filter(cb => cb.checked)
+                            .map(cb => cb.closest('tr').querySelector('td:nth-child(2)').innerText);
+  if (!action || selectedRows.length === 0) {
+    alert('Select at least one employee and a bulk action.');
+    return;
+  }
+  // Example: if action === 'bulkApprove', send these names to your backend or
+  // update UI. For now, just a placeholder:
+  console.log('Bulk Action:', action, 'on', selectedRows);
+  alert(`${action.replace('bulk','').trim()} executed for ${selectedRows.length} employees.`);
+}
+  const ctx1 = document.getElementById('barChart').getContext('2d');
+new Chart(ctx1, {
+  type: 'bar',
+  data: {
+    labels: ['North', 'South', 'East', 'West'],
+    datasets: [
+      {
+        label: 'Target',
+        data: [90, 80, 75, 85],
+        backgroundColor: '#ced4da'
+      },
+      {
+        label: 'Achieved',
+        data: [95, 85, 78, 88],
+        backgroundColor: '#007bff'
+      }
+    ]
+  },
+  options: {
+    plugins: {
+      title: {
+        display: false
+      },
+      legend: {
+        position: 'bottom'
+      }
+    },
+    responsive: true
+  }
+});
+
+
+  document.querySelectorAll('.employee-link').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const empId = this.getAttribute('data-emp-id');
+    // Dummy data lookup. Later replace with actual data from server or JS object.
+    const dummyData = {
+      alice123: { name: 'Alice Smith', role: 'Sales Executive', target: '₹3,69,033', achieved: '₹3,50,000', trend: [80, 85, 90] },
+      // …other employees…
+    };
+    const data = dummyData[empId];
+    if (data) {
+      document.getElementById('empName').innerText = data.name;
+      document.getElementById('empRole').innerText = data.role;
+      document.getElementById('empTarget').innerText = data.target;
+      document.getElementById('empAchieved').innerText = data.achieved;
+      // render mini‐trend chart
+      const ctx = document.getElementById('miniTrendChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['Month −2', 'Month −1', 'This Month'],
+          datasets: [{ label: '% Achieved', data: data.trend, borderColor: '#007bff', fill: false }]
+        },
+        options: { responsive: false, legend: { display: false }, scales: { xAxes:[{ display:false }], yAxes:[{ display:false }] } }
+      });
+      document.getElementById('empModal').style.display = 'flex';
+    }
+  });
+});
+function closeEmpModal() {
+  document.getElementById('empModal').style.display = 'none';
+}
+
+
+  const ctx2 = document.getElementById('lineChart').getContext('2d');
+  new Chart(ctx2, {
+    type: 'line',
+    data: {
+      labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+      datasets: [{
+        label: 'Target vs. Payout %',
+        data: [80, 85, 78, 90],
+        borderColor: '#28a745',
+        fill: false
+      }]
+    }
+  });
+
+  document.getElementById('selectAll').addEventListener('change', function() {
+  const checked = this.checked;
+  document.querySelectorAll('.row-select').forEach(cb => cb.checked = checked);
+});
+
+function exportTableToCSV() {
+  const rows = document.querySelectorAll('.table-section table tr');
+  let csvContent = '';
+  rows.forEach(row => {
+    const cols = row.querySelectorAll('th, td');
+    const rowData = Array.from(cols).map(cell => `"${cell.innerText.replace(/"/g, '""')}"`);
+    csvContent += rowData.join(',') + '\n';
+  });
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = 'sales-incentives.csv';
+  link.click();
+}
+
+</script>
+
+</body>
+
+</html>
+
+

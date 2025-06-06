@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Internal Compensation Trends – Jio Mudra</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background-color: #f4f6f9;
+    }
+    header {
+      background: #001a70;
+      color: white;
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      font-size: 24px;
+      margin: 0;
+    }
+    .filters select {
+      padding: 6px 10px;
+      margin-left: 10px;
+    }
+    .container {
+      padding: 2rem;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .card {
+      background: white;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .card h3 {
+      font-size: 14px;
+      margin: 0 0 0.5rem;
+      color: #666;
+    }
+    .card p {
+      font-size: 20px;
+      font-weight: bold;
+      color: #001a70;
+    }
+    .charts {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+    }
+    canvas {
+      background: white;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    table {
+      width: 100%;
+      margin-top: 2rem;
+      background: white;
+      border-collapse: collapse;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    th, td {
+      padding: 0.8rem;
+      border-bottom: 1px solid #eee;
+      text-align: left;
+    }
+    th {
+      background: #f0f3f7;
+    }
+    .insights {
+      margin-top: 2rem;
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .insights h3 {
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Compensation Trends – Internal Dashboard</h1>
+    <div class="filters">
+      <label for="year">Year:</label>
+      <select id="year">
+        <option>2025</option>
+        <option>2024</option>
+        <option>2023</option>
+      </select>
+      <label for="band">Band:</label>
+      <select id="band">
+        <option>All</option>
+        <option>Executive</option>
+        <option>Manager</option>
+        <option>Leader</option>
+      </select>
+    </div>
+  </header>
+
+  <div class="container">
+        <a href="jiopagaar.html" class="back-btn">← Back to Menu</a>
+    <div class="cards">
+      <div class="card">
+        <h3>Total Compensation Spend</h3>
+        <p>₹ 185 Cr</p>
+      </div>
+      <div class="card">
+        <h3>Average Compensation</h3>
+        <p>₹ 12.4 L</p>
+      </div>
+      <div class="card">
+        <h3>Gender Pay Gap</h3>
+        <p>8.2%</p>
+      </div>
+      <div class="card">
+        <h3>Pay Equity Score</h3>
+        <p>92.6 / 100</p>
+      </div>
+    </div>
+
+    <div class="charts">
+      <canvas id="trendChart"></canvas>
+      <canvas id="genderChart"></canvas>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Employee ID</th>
+          <th>Name</th>
+          <th>Band</th>
+          <th>Department</th>
+          <th>Gender</th>
+          <th>Base Pay (₹)</th>
+          <th>Variable Pay (₹)</th>
+          <th>Total Comp (₹)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>JIO2025123</td>
+          <td>Aditi Bhagat</td>
+          <td>Leader</td>
+          <td>HR</td>
+          <td>F</td>
+          <td>42,00,000</td>
+          <td>10,00,000</td>
+          <td>52,00,000</td>
+        </tr>
+        <tr>
+          <td>JIO2025432</td>
+          <td>Raj Malhotra</td>
+          <td>Manager</td>
+          <td>Tech</td>
+          <td>M</td>
+          <td>26,00,000</td>
+          <td>4,50,000</td>
+          <td>30,50,000</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="insights">
+      <h3>Insights & Observations</h3>
+      <ul>
+        <li>Leadership bands show higher gender gap—targeted LTI correction recommended.</li>
+        <li>Sales roles exhibit high variable pay proportion—align budgeting accordingly.</li>
+        <li>Compensation in HR, Finance closer to internal medians—optimize external benchmarking for niche roles.</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    const ctx1 = document.getElementById('trendChart').getContext('2d');
+    new Chart(ctx1, {
+      type: 'line',
+      data: {
+        labels: ['2021', '2022', '2023', '2024', '2025'],
+        datasets: [{
+          label: 'Avg Compensation (₹ L)',
+          data: [9.4, 10.1, 10.8, 11.7, 12.4],
+          borderColor: '#001a70',
+          backgroundColor: '#001a7010',
+          tension: 0.4
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { position: 'top' } },
+        scales: {
+          y: { beginAtZero: false }
+        }
+      }
+    });
+
+    const ctx2 = document.getElementById('genderChart').getContext('2d');
+    new Chart(ctx2, {
+      type: 'doughnut',
+      data: {
+        labels: ['Male', 'Female', 'Other'],
+        datasets: [{
+          label: 'Employee Gender Distribution',
+          data: [62, 35, 3],
+          backgroundColor: ['#1f77b4', '#ff7f0e', '#2ca02c']
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { position: 'bottom' } }
+      }
+    });
+  </script>
+</body>
+</html>

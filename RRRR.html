@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RBL Elite Credit Card</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Open+Sans&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Open Sans', sans-serif;
+      background-color: #0d0d0d;
+      color: #fff;
+    }
+
+    header {
+      background-color: #111;
+      padding: 20px 40px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #333;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      color: gold;
+      font-size: 24px;
+    }
+
+    nav a {
+      color: #ccc;
+      margin-left: 30px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: gold;
+    }
+
+    .hero {
+      background: url('https://images.unsplash.com/photo-1590073242670-ec2ce6e91f18?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+      height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 60px;
+      color: white;
+      text-shadow: 0 0 10px rgba(0,0,0,0.6);
+    }
+
+    .hero {
+  background-color: #0d0d0d;
+  padding: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 85vh;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.hero-text {
+  flex: 1;
+  padding: 20px;
+}
+
+.hero-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.hero-image img {
+  max-width: 90%;
+  border-radius: 16px;
+  box-shadow: 0 0 50px rgba(255, 215, 0, 0.4);
+  transition: transform 0.3s ease;
+}
+
+.hero-image img:hover {
+  transform: scale(1.05);
+}
+
+
+    .hero h2 {
+      font-size: 48px;
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 20px;
+      max-width: 600px;
+      line-height: 1.5;
+    }
+
+    .cta-button {
+      margin-top: 30px;
+      padding: 14px 30px;
+      font-size: 16px;
+      background-color: gold;
+      color: black;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .section {
+      padding: 80px 60px;
+      background-color: #1a1a1a;
+    }
+
+    .section h3 {
+      font-size: 32px;
+      font-family: 'Playfair Display', serif;
+      color: gold;
+      margin-bottom: 30px;
+    }
+
+    .benefits {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .benefit {
+      background-color: #222;
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid #333;
+    }
+
+    .benefit h4 {
+      color: #fff;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .benefit p {
+      font-size: 15px;
+      color: #ccc;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px;
+      background-color: #0d0d0d;
+      border-top: 1px solid #222;
+      color: #666;
+      font-size: 14px;
+    }
+  </style>
+
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+
+
+</head>
+<body>
+
+<header>
+  <h1>RBL Elite Card</h1>
+  <nav>
+    <a href="#benefits">Benefits</a>
+    <a href="#apply">Apply</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-text" data-aos="fade-right">
+
+    <!-- <div class="hero-text"> -->
+      <h2>The Card of Distinction</h2>
+      <p>Experience exclusivity redefined with the RBL Elite Card – crafted for visionaries, moguls, and connoisseurs of luxury.</p>
+      <button class="cta-button">Apply Now</button>
+    </div>
+    <!-- <div class="hero-image"> -->
+        <div class="hero-image" data-aos="fade-left">
+
+      <!-- <img src="https://i.imgur.com/oQzJ1pX.png" alt="RBL Elite Card" /> -->
+
+      <img src="https://i.ibb.co/KxkgmGSp/df5a512d-35f0-423a-b451-6b590c47acd5.png" alt="RBL Elite Card" />
+      <!-- <img src="https://cdn.dribbble.com/users/153422/screenshots/17286936/media/27330e53982646e3d51a01e8f80a7b36.png" alt="RBL Elite Card" /> -->
+
+
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background-color: #121212;">
+  <h3>Why RBL Elite?</h3>
+  <div class="benefits" style="text-align: center;">
+    <div class="benefit">
+      <img src="https://cdn-icons-png.flaticon.com/512/3595/3595455.png" alt="Exclusive Access" style="height: 40px; margin-bottom: 10px;">
+      <h4>Exclusive Access</h4>
+      <p>Invitations to fashion shows, gala events, art previews, and members-only gatherings.</p>
+    </div>
+
+    <div class="benefit" data-aos="zoom-in">
+      <img src="https://cdn-icons-png.flaticon.com/512/1250/1250615.png" alt="Luxury Partnerships" style="height: 40px; margin-bottom: 10px;">
+      <h4>Luxury Partnerships</h4>
+      <p>Preferred treatment with Taj, Versace, Montblanc, and other elite brands.</p>
+    </div>
+
+    <div class="benefit" data-aos="zoom-in">
+      <img src="https://cdn-icons-png.flaticon.com/512/1356/1356203.png" alt="Priority Service" style="height: 40px; margin-bottom: 10px;">
+      <h4>Priority Concierge</h4>
+      <p>24/7 global concierge to handle everything from last-minute charters to rare reservations.</p>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- 
+<section class="section" style="background-color: #121212;">
+  <h3>Why RBL Elite?</h3>
+  <div class="benefits" style="text-align: center;">
+    <div class="benefit">
+      <img src="https://cdn-icons-png.flaticon.com/512/3595/3595455.png" alt="Exclusive Access" style="height: 40px; margin-bottom: 10px;">
+      <h4>Exclusive Access</h4>
+      <p>Invitations to fashion shows, gala events, art previews, and members-only gatherings.</p>
+    </div> -->
+    <!-- <div class="benefit"> -->
+        <!-- <div class="benefit" data-aos="zoom-in"></div>
+      <img src="https://cdn-icons-png.flaticon.com/512/1250/1250615.png" alt="Luxury Partnerships" style="height: 40px; margin-bottom: 10px;">
+      <h4>Luxury Partnerships</h4>
+      <p>Preferred treatment with Taj, Versace, Montblanc, and other elite brands.</p>
+    </div> -->
+    <!-- <div class="benefit"> -->
+        <!-- <div class="benefit" data-aos="zoom-in"></div>
+      <img src="https://cdn-icons-png.flaticon.com/512/1356/1356203.png" alt="Priority Service" style="height: 40px; margin-bottom: 10px;">
+      <h4>Priority Concierge</h4>
+      <p>24/7 global concierge to handle everything from last-minute charters to rare reservations.</p>
+    </div>
+  </div>
+</section> -->
+
+<section class="section" style="background-color: #181818;">
+  <h3>Signature Experiences with RBL Elite</h3>
+  <p style="text-align: center; color: #ccc; margin-top: -20px; margin-bottom: 30px; font-size: 16px;">
+  Unlock exclusive Reliance experiences reserved only for RBL Elite members.
+</p>
+  <div class="benefits">
+<div class="benefit" data-aos="fade-up">
+  <img src="https://www.jioworldplaza.com/_next/static/media/Header%20Logo.dba5a06f.svg" alt="Plaza Shopping" style="height: 40px; margin-bottom: 10px;">
+  <h4>Jio World Plaza / Drive</h4>
+  <p><strong>Card Privilege:</strong> After-hours private shopping nights (bi-annual)</p>
+  <p><strong>Customer Benefit:</strong> Quiet, concierge-led buying; exclusive previews</p>
+</div>
+
+<div class="benefit" data-aos="fade-up">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqD1TduMGjVLeyacGK3uOKJvBRtkkNukuE9Q&s" alt="Fashion Show" style="height: 40px; margin-bottom: 10px;">
+  <h4>Reliance Fashion Labels</h4>
+  <p><strong>Card Privilege:</strong> Front-row invites, trunk shows, early-season drops</p>
+  <p><strong>Customer Benefit:</strong> “Money-can’t-buy” fashion clout</p>
+</div>
+
+<div class="benefit" data-aos="fade-up">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMBHAFUinLNLbpxbbUQfjWxSPYY_zf2Y_hbg&s" alt="Stylist Service" style="height: 40px; margin-bottom: 10px;">
+  <h4>Personal Shopper at Jio Malls</h4>
+  <p><strong>Card Privilege:</strong> Complimentary styling sessions each quarter</p>
+  <p><strong>Customer Benefit:</strong> Curated wardrobes, time savings</p>
+</div>
+
+
+
+
+ <div class="benefit" data-aos="fade-up">
+  <img src="https://m.media-amazon.com/images/I/41FXyMniUZL._SX679_.jpg" alt="Stylist Service" style="height: 40px; margin-bottom: 10px;">
+      <h4>Luxe Gift Cards</h4>
+      <p><strong>Card Privilege:</strong> ₹10k–₹20k welcome & milestone gifts</p>
+      <p><strong>Customer Benefit:</strong> Instant luxury gratification across 50+ brands</p>
+    </div>
+
+    <div class="benefit" data-aos="fade-up">
+  <img src="https://glamsham.com/wp-content/uploads/2023/04/Jio-World-Convention-Centre-Logo-and-NMACC_pic-courtesy-Instagram.jpg" alt="Stylist Service" style="height: 40px; margin-bottom: 10px;">
+     
+      <h4>NMACC & JWCC</h4>
+      <p><strong>Card Privilege:</strong> VIP suite, butler, backstage meet-ups</p>
+      <p><strong>Customer Benefit:</strong> Culture & networking perks no rival offers</p>
+    </div>
+
+    <div class="benefit" data-aos="fade-up">
+        <img src="https://backend.jioworldplaza.com/wp-content/uploads/2024/01/5-1208-x-500.jpg" alt="Stylist Service" style="height: 40px; margin-bottom: 10px;">
+ 
+
+        
+      <h4>Jio Plaza Suites / Butler</h4>
+      <p><strong>Card Privilege:</strong> Preferential booking & tariff</p>
+      <p><strong>Customer Benefit:</strong> Seamless stays for business or social events</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background-color: #151515;">
+  <h3>Elite Tiers & Co-Brand Spend Privileges</h3>
+  <!-- <p style="text-align: center; color: #ccc; margin-top: -20px; margin-bottom: 30px; font-size: 16px;">
+     -->
+    <p style="max-width: 720px; margin: -10px auto 30px auto; text-align: center; color: #ccc; font-size: 16px;">
+
+    Progress through Gold, Platinum, and Black tiers as your lifestyle spend grows — unlocking newer experiences and concierge levels.
+  </p>
+
+  <div style="overflow-x: auto;">
+    <table style="width: 100%; border-collapse: collapse; background-color: #1e1e1e; color: #ccc; font-size: 15px;">
+      <thead style="background-color: #2a2a2a;">
+        <tr>
+          <th style="padding: 12px; border: 1px solid #333;">Tier</th>
+          <th style="padding: 12px; border: 1px solid #333;">Entry Route</th>
+          <th style="padding: 12px; border: 1px solid #333;">Annual Fee (INR)</th>
+          <th style="padding: 12px; border: 1px solid #333;">Spend Requirement</th>
+          <th style="padding: 12px; border: 1px solid #333;">Key Differentiators</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tbody>
+  <tr>
+    <td style="padding: 12px; border: 1px solid #333;">🟡 Gold</td>
+    <td style="padding: 12px; border: 1px solid #333;">By application</td>
+    <td style="padding: 12px; border: 1px solid #333;">₹15,000+</td>
+    <td style="padding: 12px; border: 1px solid #333;">N/A (joining)</td>
+    <td style="padding: 12px; border: 1px solid #333;">Luxury retail access, hotel, wellness, invites</td>
+  </tr>
+  <tr>
+    <td style="padding: 12px; border: 1px solid #333;">⚪ Platinum</td>
+    <td style="padding: 12px; border: 1px solid #333;">By spend/upgrade</td>
+    <td style="padding: 12px; border: 1px solid #333;">₹50,000+</td>
+    <td style="padding: 12px; border: 1px solid #333;">10–15L+ per year</td>
+    <td style="padding: 12px; border: 1px solid #333;">Premium club, fashion events, masterclasses</td>
+  </tr>
+  <tr>
+    <td style="padding: 12px; border: 1px solid #333;">⚫ Black</td>
+    <td style="padding: 12px; border: 1px solid #333;">By invite/elite</td>
+    <td style="padding: 12px; border: 1px solid #333;">Top tier / waived</td>
+    <td style="padding: 12px; border: 1px solid #333;">25L+ per year OR by invite</td>
+    <td style="padding: 12px; border: 1px solid #333;">All-access, global concierge, private launches</td>
+  </tr>
+</tbody>
+
+        
+    </table>
+  </div>
+</section>
+
+<section id="benefits" class="section">
+  <h3>Unparalleled Benefits</h3>
+  <div class="benefits">
+    <!-- <div class="benefit"> -->
+        <div class="benefit" data-aos="fade-up">
+
+      <h4>Global Lounge Access</h4>
+      <p>Unlimited complimentary access to 1000+ airport lounges worldwide for you and your guests.</p>
+    </div>
+    <!-- <div class="benefit"> -->
+        <div class="benefit" data-aos="fade-up">
+
+      <h4>Concierge & Lifestyle Services</h4>
+      <p>24/7 personal concierge to arrange travel, reservations, and lifestyle experiences globally.</p>
+    </div>
+    <!-- <div class="benefit"> -->
+        <div class="benefit" data-aos="fade-up">
+
+      <h4>Luxury Brand Privileges</h4>
+      <p>Exclusive invites, pre-launch previews, and personalised styling from global luxury partners.</p>
+    </div>
+    <div class="benefit">
+      <h4>Annual Staycation Retreat</h4>
+      <p>One complimentary 2-night stay at a Taj, Oberoi, or St. Regis property every year.</p>
+    </div>
+    <div class="benefit">
+      <h4>Insurance & Protection</h4>
+      <p>₹2 Cr air accident cover, fraud protection, and global travel medical assistance.</p>
+    </div>
+    <div class="benefit">
+      <h4>Black Tier Rewards</h4>
+      <p>Accelerated points with exclusive redemption partners – from yachts to private jets.</p>
+    </div>
+  </div>
+</section>
+
+<!-- <section id="apply" class="section" style="background-color: #111;"> -->
+
+    <section id="apply" class="section" style="background-color: #111;" data-aos="fade-up">
+
+  <h3>Apply for the Elite Experience</h3>
+  <p>Membership is by invitation only. Leave your details and our team will reach out for eligibility screening.</p>
+  <form style="margin-top: 30px;">
+    <input type="text" placeholder="Full Name" style="padding: 12px; width: 300px; margin-bottom: 10px;"><br>
+    <input type="email" placeholder="Email Address" style="padding: 12px; width: 300px; margin-bottom: 10px;"><br>
+    <input type="text" placeholder="City of Residence" style="padding: 12px; width: 300px;"><br>
+    <button class="cta-button" style="margin-top: 20px;">Submit Interest</button>
+  </form>
+</section>
+
+<footer id="contact">
+  <p>© 2025 Reliance Brands Limited. All rights reserved. | elitecard@rbl.com | +91-22-XXXX-XXXX</p>
+</footer>
+<script>
+  AOS.init({
+    duration: 1000,
+    once: true
+  });
+</script>
+
+</body>
+</html>

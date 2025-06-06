@@ -1,0 +1,230 @@
+  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Jio Pagaar – Workspace Manager</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f7fa;
+      margin: 0;
+    }
+    header {
+      background-color: #003366;
+      color: white;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 18px;
+    }
+    .container {
+      display: flex;
+      padding: 20px;
+      gap: 20px;
+    }
+    .sidebar, .main {
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+    .sidebar {
+      width: 280px;
+    }
+    .main {
+      flex: 1;
+    }
+    h2 {
+      margin-top: 0;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      margin-bottom: 10px;
+    }
+    button {
+      background-color: #0052cc;
+      color: white;
+      padding: 10px;
+      width: 100%;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .stats {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .stat-card {
+      flex: 1;
+      padding: 16px;
+      background-color: #eef1f5;
+      border-radius: 6px;
+      text-align: center;
+    }
+    .table-wrapper {
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+    .badge {
+      padding: 4px 8px;
+      border-radius: 5px;
+      font-size: 12px;
+      font-weight: bold;
+      color: white;
+    }
+    .in-progress { background-color: #f0ad4e; }
+    .submitted { background-color: #5cb85c; }
+    .overdue { background-color: #d9534f; }
+    .locked { background-color: #666; }
+    .actions a {
+      margin: 0 5px;
+      text-decoration: none;
+      color: #0052cc;
+      font-weight: bold;
+    }
+    .footer {
+      text-align: right;
+      padding: 10px 20px;
+    }
+    .chart-box {
+      margin-top: 20px;
+      background: #eef1f5;
+      padding: 15px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div>Jio Pagaar >> Planner & Budgeting >> Workspace Manager</div>
+  <div>User | Help</div>
+</header>
+
+<div class="container">
+          <!-- ✅ One Back Button to Planner Submodules -->
+   <a href="jiopagaar.html#plannerSubmodules" class="back-btn">← Back to Planner Submodules</a>
+
+  <div class="sidebar">
+    <h2>Create Workspace</h2>
+    <label>Workspace Name</label>
+    <input type="text" placeholder="e.g. Finance FY26">
+
+    <label>Planning Period</label>
+    <select>
+      <option>FY26</option>
+      <option>Q1 FY26</option>
+      <option>Q4 FY25</option>
+    </select>
+
+    <label>Planner</label>
+    <select>
+      <option>John D</option>
+      <option>Priya R</option>
+    </select>
+
+    <label>Access</label>
+    <select>
+      <option>HRBP Level</option>
+      <option>BU Level</option>
+    </select>
+
+    <label>Scope</label>
+    <select>
+      <option>Org Unit</option>
+      <option>Sales</option>
+      <option>Engineering</option>
+    </select>
+
+    <label>Reviewer</label>
+    <select>
+      <option>None</option>
+      <option>Finance Head</option>
+    </select>
+
+    <button>Create Workspace</button>
+  </div>
+
+  <div class="main">
+    <h2>Workspace Monitoring</h2>
+    <div class="stats">
+      <div class="stat-card"><strong>14</strong><br>Total Created</div>
+      <div class="stat-card"><strong>8</strong><br>In Progress</div>
+      <div class="stat-card"><strong>4</strong><br>Submitted</div>
+      <div class="stat-card"><strong>1</strong><br>Locked</div>
+      <div class="stat-card"><strong>1</strong><br>Overdue</div>
+    </div>
+
+    <div class="chart-box">
+      <p><strong>Insights:</strong></p>
+      <ul>
+        <li>🔔 1 workspace is overdue</li>
+        <li>⚠ 1 workspace does not have a reviewer</li>
+        <li>✅ All submissions completed for Sales Q1</li>
+      </ul>
+    </div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Workspace Name</th>
+            <th>Planner</th>
+            <th>Scope</th>
+            <th>Status</th>
+            <th>Last Updated</th>
+            <th>Progress</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Finance FY26</td>
+            <td>John D</td>
+            <td>L1–L3</td>
+            <td><span class="badge in-progress">In Progress</span></td>
+            <td>09 May 2025</td>
+            <td>45%</td>
+            <td class="actions"><a href="#">View</a><a href="#">Lock</a></td>
+          </tr>
+          <tr>
+            <td>Sales Q1</td>
+            <td>Priya R</td>
+            <td>West BU</td>
+            <td><span class="badge submitted">Submitted</span></td>
+            <td>13 May 2025</td>
+            <td>100%</td>
+            <td class="actions"><a href="#">View</a><a href="#">Reopen</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <button>Download Summary Report</button>
+</div>
+
+</body>
+</html>

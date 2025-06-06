@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ESOP Documentation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+    }
+
+    header {
+      background: linear-gradient(to right, #003380, #0055cc);
+      color: white;
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
+    .container {
+      padding: 2rem;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .filters button {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 16px;
+      background-color: #e0e7ff;
+      color: #003380;
+      cursor: pointer;
+    }
+
+    .filters button.active {
+      background-color: #003380;
+      color: white;
+    }
+
+    .search-bar input {
+      padding: 0.7rem;
+      width: 300px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 2rem;
+    }
+
+    .section {
+      margin-bottom: 2rem;
+    }
+
+    .section h2 {
+      font-size: 1.2rem;
+      color: #003380;
+      margin-bottom: 1rem;
+    }
+
+    .doc-card {
+      background: white;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .doc-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .doc-title {
+      font-weight: 600;
+    }
+
+    .doc-meta {
+      font-size: 0.85rem;
+      color: gray;
+    }
+
+    .doc-actions button {
+      margin-left: 0.5rem;
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: none;
+      background: #0055cc;
+      color: white;
+      cursor: pointer;
+    }
+
+    .pinned {
+      background: #fffbe6;
+      border-left: 5px solid gold;
+    }
+
+    .persona-toggle {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .persona-toggle button {
+      background: white;
+      border: 1px solid #0055cc;
+      color: #0055cc;
+      border-radius: 20px;
+      padding: 6px 14px;
+      cursor: pointer;
+    }
+
+    .persona-toggle button.active {
+      background: #0055cc;
+      color: white;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>ESOP Documentation</h1>
+  <div class="persona-toggle">
+    <button class="active" onclick="togglePersona('employee')">Employee View</button>
+    <button onclick="togglePersona('admin')">Admin View</button>
+  </div>
+</header>
+
+<div class="container">
+  <div class="filters">
+    <button class="active" onclick="filterDocs('all')">All</button>
+    <button onclick="filterDocs('scheme')">Scheme</button>
+    <button onclick="filterDocs('valuation')">Valuation</button>
+    <button onclick="filterDocs('policy')">Policy</button>
+    <button onclick="filterDocs('compliance')">Compliance</button>
+    <button onclick="filterDocs('tools')">Tools</button>
+  </div>
+
+  <div class="search-bar">
+    <input type="text" id="searchInput" onkeyup="searchDocs()" placeholder="Search documents...">
+  </div>
+
+  <div class="section" data-category="pinned">
+    <h2>⭐ Most Accessed</h2>
+    <div class="doc-card pinned" data-tags="valuation employee">
+      <div class="doc-info">
+        <span class="doc-title">Black-Scholes Explained</span>
+        <span class="doc-meta">v2.3 – Last Updated: Apr 2025</span>
+      </div>
+      <div class="doc-actions">
+        <button>View</button>
+        <button>Download</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" data-category="scheme">
+<h2>📂 Scheme Frameworks</h2>
+
+<div class="doc-card" data-tags="scheme equity admin">
+  <div class="doc-info">
+    <span class="doc-title">Master ESOP Scheme (Equity Options)</span>
+    <span class="doc-meta">PDF – Apr 2025</span>
+  </div>
+  <div class="doc-actions">
+    <button>View</button>
+    <button>Download</button>
+  </div>
+</div>
+
+<div class="doc-card" data-tags="scheme equity cxolevel">
+  <div class="doc-info">
+    <span class="doc-title">RSU (Restricted Stock Units) Policy</span>
+    <span class="doc-meta">PDF – FY25 CXO Plan</span>
+  </div>
+  <div class="doc-actions">
+    <button>View</button>
+    <button>Download</button>
+  </div>
+</div>
+
+<div class="doc-card" data-tags="scheme cash-settled employee">
+  <div class="doc-info">
+    <span class="doc-title">SAR (Stock Appreciation Rights) Framework</span>
+    <span class="doc-meta">PDF – Apr 2025</span>
+  </div>
+  <div class="doc-actions">
+    <button>View</button>
+    <button>Download</button>
+  </div>
+</div>
+
+<div class="doc-card" data-tags="scheme equity employee">
+  <div class="doc-info">
+    <span class="doc-title">ESPP (Stock Purchase Plan) Policy</span>
+    <span class="doc-meta">PDF – Employee Discount Scheme</span>
+  </div>
+  <div class="doc-actions">
+    <button>View</button>
+    <button>Download</button>
+  </div>
+</div>
+
+<div class="doc-card" data-tags="scheme cash-settled admin">
+  <div class="doc-info">
+    <span class="doc-title">Phantom Stock Scheme</span>
+    <span class="doc-meta">PDF – Apr 2025</span>
+  </div>
+  <div class="doc-actions">
+    <button>View</button>
+    <button>Download</button>
+  </div>
+</div>
+
+<div class="doc-card" data-tags="scheme equity cxolevel">
+  <div class="doc-info">
+    <span class="doc-title">Sweat Equity Share Policy</span>
+    <span class="doc-meta">PDF – For Founders & Key Contributors</span>
+  </div>
+  <div class="doc-actions">
+    <button>View</button>
+    <button>Download</button>
+  </div>
+</div>
+
+<div class="doc-card" data-tags="scheme hybrid admin">
+  <div class="doc-info">
+    <span class="doc-title">LTI Plan Framework (Mix of ESOPs/RSUs/SAR)</span>
+    <span class="doc-meta">PDF – FY25 Long-Term Strategy</span>
+  </div>
+  <div class="doc-actions">
+    <button>View</button>
+    <button>Download</button>
+  </div>
+</div>
+
+<div class="doc-card" data-tags="scheme compliance admin">
+  <div class="doc-info">
+    <span class="doc-title">Equity Buyback & Liquidity Policy</span>
+    <span class="doc-meta">PDF – Unlisted Equity Exit Process</span>
+  </div>
+  <div class="doc-actions">
+    <button>View</button>
+    <button>Download</button>
+  </div>
+</div>
+
+<div class="doc-card" data-tags="scheme policy cxolevel">
+  <div class="doc-info">
+    <span class="doc-title">Exit Acceleration Policy (M&A/Death/Disability)</span>
+    <span class="doc-meta">PDF – Special Event Clauses</span>
+  </div>
+  <div class="doc-actions">
+    <button>View</button>
+    <button>Download</button>
+  </div>
+</div>
+
+<div class="doc-card" data-tags="scheme cxolevel bonus-linked">
+  <div class="doc-info">
+    <span class="doc-title">Deferred Bonus-Linked Equity Plan</span>
+    <span class="doc-meta">PDF – FY25 CXO-Triggered Awards</span>
+  </div>
+  <div class="doc-actions">
+    <button>View</button>
+    <button>Download</button>
+  </div>
+</div>
+  </div>
+
+  <div class="section" data-category="valuation">
+    <h2>📊 Valuation</h2>
+    <div class="doc-card" data-tags="valuation admin">
+      <div class="doc-info">
+        <span class="doc-title">Fair Value vs Intrinsic Value</span>
+        <span class="doc-meta">PDF – FY24</span>
+      </div>
+      <div class="doc-actions">
+        <button>View</button>
+        <button>Download</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" data-category="policy">
+    <h2>📘 Policy</h2>
+    <div class="doc-card" data-tags="policy employee">
+      <div class="doc-info">
+        <span class="doc-title">Vesting Matrix</span>
+        <span class="doc-meta">PDF – Apr 2025</span>
+      </div>
+      <div class="doc-actions">
+        <button>View</button>
+        <button>Download</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" data-category="compliance">
+    <h2>⚖️ Compliance</h2>
+    <div class="doc-card" data-tags="compliance admin">
+      <div class="doc-info">
+        <span class="doc-title">Board Resolution Snapshot</span>
+        <span class="doc-meta">PDF – Apr 2025</span>
+      </div>
+      <div class="doc-actions">
+        <button>View</button>
+        <button>Download</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function filterDocs(tag) {
+    const allButtons = document.querySelectorAll('.filters button');
+    allButtons.forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+
+    const sections = document.querySelectorAll('.section');
+    sections.forEach(section => {
+      if (tag === 'all' || section.dataset.category === tag || section.dataset.category === 'pinned') {
+        section.style.display = '';
+      } else {
+        section.style.display = 'none';
+      }
+    });
+  }
+
+  function searchDocs() {
+    const input = document.getElementById('searchInput').value.toLowerCase();
+    const cards = document.querySelectorAll('.doc-card');
+
+    cards.forEach(card => {
+      const title = card.querySelector('.doc-title').textContent.toLowerCase();
+      card.style.display = title.includes(input) ? '' : 'none';
+    });
+  }
+
+  function togglePersona(role) {
+    const buttons = document.querySelectorAll('.persona-toggle button');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    if (role === 'employee') buttons[0].classList.add('active');
+    else buttons[1].classList.add('active');
+
+    const cards = document.querySelectorAll('.doc-card');
+    cards.forEach(card => {
+      const tags = card.dataset.tags;
+      if (tags.includes(role)) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+
+# 💼 Jio Mudra – Compensation Tool (Frontend)
+
+This guide helps you **set up and run the Jio Mudra Compensation Tool** (HTML dashboard) on your local machine using **Visual Studio Code** with **Live Server**.
+
+---
+
+## 🛠 Prerequisites
+
+1. **Visual Studio Code**
+   Download and install VS Code from here:
+   👉 [Download Visual Studio Code](https://code.visualstudio.com/)
+
+2. **Live Server Extension**
+   After opening VS Code, install the Live Server extension:
+   👉 [Live Server Extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
+
+---
+
+## 🚀 Steps to Run Jio Mudra
+
+### 1. Open Visual Studio Code
+
+![Step 1 – Open VS Code](https://i.imgur.com/vn4UCMx.png)
+
+---
+
+### 2. Install Live Server (if not already done)
+
+* Click on the **Extensions icon** on the sidebar.
+* Search for **"Live Server"**
+* Click **Install**
+  ![Step 2 – Install Live Server](https://i.imgur.com/dTsw0qk.png)
+
+---
+
+### 3. Open the Project Folder
+
+* Go to **File > Open Folder**
+* Browse to the folder named **`Jio Mudra`** on your system
+* Click **Select Folder**
+  ![Step 3 – Open Jio Mudra folder](https://i.imgur.com/pkIbdOo.png)
+
+---
+
+### 4. Locate the Main HTML File
+
+In the folder explorer, locate and select:
+**`JioPagaar.html`**
+![Step 4 – Locate HTML file](https://i.imgur.com/zJ3HgBI.png)
+
+---
+
+### 5. Open with Live Server
+
+* **Right-click** on the `JioPagaar.html` file
+* Click **"Open with Live Server"**
+  This will launch the tool in your default browser.
+  ![Step 5 – Run with Live Server](https://i.imgur.com/lzP1gdk.png)
+
+---
+
+## ✅ Done!
+
+Your **Jio Mudra Compensation Tool** is now running locally! You can interact with the dashboard and test features in real-time.
+
+
